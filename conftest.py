@@ -2,6 +2,7 @@ import pytest
 from time import sleep
 from selenium import webdriver
 from pages.create_account import CreateAccount
+from pages.collections_eco_friendly import CollectionsEcoFriendly
 from selenium.webdriver.chrome.options import Options
 
 options = Options()
@@ -10,6 +11,11 @@ options = Options()
 @pytest.fixture()
 def create_account_page(driver):
     return CreateAccount(driver)
+
+
+@pytest.fixture()
+def collections_eco_friendly_page(driver):
+    return CollectionsEcoFriendly(driver)
 
 
 @pytest.fixture()

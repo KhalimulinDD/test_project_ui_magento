@@ -30,8 +30,8 @@ class CreateAccount(BasePage):
 
         button.click()
 
-    # Проверка сообщений об ошибке для конкретных полей
     def check_field_error_is_displayed(self, field, error_message):
+        """Проверка сообщений об ошибке для конкретных полей"""
         if field == 'first_name':
             error_element = self.find(loc.first_name_error_loc)
         elif field == 'last_name':
@@ -49,7 +49,8 @@ class CreateAccount(BasePage):
         assert error_message in error_element.text
 
     @staticmethod
-    def get_negative_test_data():
+    def get_test_data_no_required_fields():
+        """Варианты заполнения полей"""
 
         message_error_field = 'This is a required field.'
 
@@ -75,8 +76,8 @@ class CreateAccount(BasePage):
              'Password123', None, f"{message_error_field}"),
         ]
 
-    # Метод для проверки текста на странице
     def check_create_alert_text_is(self, text):
+        """Метод для проверки текста на странице"""
         WebDriverWait(self.driver, 5).until(project_ec.text_is_not_empty_in_element(loc.create_locator))
 
         create_alert = self.driver.find_element(*loc.create_locator)
