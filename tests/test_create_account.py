@@ -4,6 +4,7 @@ import allure
 import dotenv
 from faker import Faker
 from pages.create_account import CreateAccount as CA
+from pages.locators import create_account_locators as loc
 
 # Создаем объект Faker
 fake = Faker()
@@ -33,7 +34,8 @@ def test_correct_create_account(create_account_page):
 
     # Проверка соответствующего текста после создания аккаунта
     create_account_page.check_create_alert_text_is(
-        'Thank you for registering with Main Website Store.'
+        locator=loc.create_locator,
+        expected_text='Thank you for registering with Main Website Store.'
     )
 
 

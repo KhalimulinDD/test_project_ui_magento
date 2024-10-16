@@ -1,7 +1,5 @@
-from utils import project_ec
 from pages.base_page import BasePage
 from pages.locators import create_account_locators as loc
-from selenium.webdriver.support.wait import WebDriverWait
 
 
 class CreateAccount(BasePage):
@@ -75,10 +73,3 @@ class CreateAccount(BasePage):
             ("confirm_password", "John", "Doe", "john.doe@example.com",
              'Password123', None, f"{message_error_field}"),
         ]
-
-    def check_create_alert_text_is(self, text):
-        """Метод для проверки текста на странице"""
-        WebDriverWait(self.driver, 5).until(project_ec.text_is_not_empty_in_element(loc.create_locator))
-
-        create_alert = self.driver.find_element(*loc.create_locator)
-        assert create_alert.text == text
