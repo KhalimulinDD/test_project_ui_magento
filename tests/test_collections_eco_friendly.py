@@ -21,3 +21,19 @@ def test_add_the_first_compare(collections_eco_friendly_page):
         element_loc1=loc.first_element_loc,
         element_loc2=loc.compare_product_loc
     )
+
+
+@allure.feature('Navigate to the Shorts subtab')
+@allure.story('Man tab navigation')
+@allure.title('Переход на подвкладку Shorts')
+@allure.description('Данный тест выполняет переход и нажатие на подвкладку Shorts')
+@pytest.mark.regression
+def test_men_bottoms_shorts(collections_eco_friendly_page):
+
+    # Открытие страницы в браузере
+    collections_eco_friendly_page.open_page()
+
+    # Поиск и нажатие на элемент Shorts
+    collections_eco_friendly_page.element_men_bottom_shorts()
+
+    collections_eco_friendly_page.check_create_alert_text_is(locator=loc.text_shorts_loc, expected_text='Shorts')
