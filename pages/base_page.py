@@ -1,15 +1,19 @@
+from utils import project_ec
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class BasePage:
     base_url = 'https://magento.softwaretestingboard.com'
     page_url = None
 
-    def __init__(self, driver: WebDriver):
-        """Метод инициализации драйвера"""
+    def __init__(self, driver: WebDriver, timeout: int = 10):
+        """Инициализация драйвера и ActionChains"""
         self.driver = driver
+        self.timeout = timeout
+        self.actions = ActionChains(self.driver)
 
     def open_page(self):
         """Метод для открытия страницы"""
@@ -46,3 +50,22 @@ class BasePage:
         element2_text = element2.text.strip()
 
         assert element1_text == element2_text
+
+    def wait_for_element(self, locator: tuple[str, str], condition: EC, timeout: int = None):
+        """Метод явного ожидания элемента"""
+        if timeout is None:
+            timeout = self.timeout
+        return WebDriverWait(self.driver, timeout).until(condition(locator))
+
+    def check_create_alert_text_is(self, locator: tuple, expected_text: str):
+        """Метод для проверки текста элемента на странице"""
+
+        # Явное ожидание, пока текст элемента не станет непустым
+        WebDriverWait(self.driver, 5).until(project_ec.text_is_not_empty_in_element(locator))
+
+        # Поиск элемента по переданному локатору
+        element = self.driver.find_element(*locator)
+
+        # Проверка, что текст элемента соответствует ожидаемому
+        actual_text = element.text.strip()
+        assert actual_text == expected_text
