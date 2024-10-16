@@ -15,6 +15,7 @@ sort_by_loc = (By.XPATH, '//*[@class="column main"]/descendant::select[@id="sort
 sort_by_price_loc = (
     By.XPATH, '//*[@class="column main"]/descendant::select[@id="sorter"][1]/child::option[@value="price"]'
 )
+sorted_goods_loc = (By.XPATH, '//*[@class="product details product-item-details"]/descendant::span[@class="price"]')
 
 # Поиск элементов кнопок
 button_add_to_compair_loc = (By.XPATH, '//div[@class="product-item-inner"]/descendant::div[3]/child::a[2]')

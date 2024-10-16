@@ -18,8 +18,8 @@ def test_add_the_first_compare(collections_eco_friendly_page):
 
     # Сравниваем текст первого товара и товара в списке сравнения
     collections_eco_friendly_page.compare_element_texts(
-        element_loc1=loc.first_element_loc,
-        element_loc2=loc.compare_product_loc
+        text_element_loc1=loc.first_element_loc,
+        text_element_loc2=loc.compare_product_loc
     )
 
 
@@ -49,5 +49,8 @@ def test_sort_by_ascending_order(collections_eco_friendly_page):
     # Открытие страницы в браузере
     collections_eco_friendly_page.open_page()
 
-    # Поиск и нажатие на элемент Shorts
+    # Выбор сортировки по Price
     collections_eco_friendly_page.sort_by_price()
+
+    # Проверка сортировки по возрастанию
+    collections_eco_friendly_page.check_prices_sorted_ascending(price_locator=loc.sorted_goods_loc)

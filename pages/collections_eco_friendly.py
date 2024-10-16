@@ -28,5 +28,6 @@ class CollectionsEcoFriendly(BasePage):
         self.actions.click(element_men_bottoms_shorts)
         self.actions.perform()
 
+    # Поиск и нажатие на сортировку по возрастанию
     def sort_by_price(self):
         self.select_by_value(select_locator=loc.sort_by_loc, value_locator=loc.sort_by_price_loc)
