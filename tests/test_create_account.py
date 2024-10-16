@@ -33,9 +33,10 @@ def test_correct_create_account(create_account_page):
     )
 
     # Проверка соответствующего текста после создания аккаунта
-    create_account_page.check_create_alert_text_is(locator=loc.create_locator,
-                                                   expected_text='Thank you for registering with Main Website Store.'
-                                                   )
+    create_account_page.check_create_alert_text_is(
+        locator=loc.create_locator,
+        expected_text='Thank you for registering with Main Website Store.'
+    )
 
 
 @allure.feature('Create account')

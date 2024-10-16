@@ -27,3 +27,6 @@ class CollectionsEcoFriendly(BasePage):
         sleep(2)
         self.actions.click(element_men_bottoms_shorts)
         self.actions.perform()
+
+    def sort_by_price(self):
+        self.select_by_value(select_locator=loc.sort_by_loc, value_locator=loc.sort_by_price_loc)

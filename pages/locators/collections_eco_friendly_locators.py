@@ -10,5 +10,11 @@ men_bottoms_loc = (By.ID, 'ui-id-18')
 men_bottoms_shorts_loc = (By.ID, 'ui-id-24')
 text_shorts_loc = (By.ID, 'page-title-heading')
 
+# Поиск элементов для сортировки товаров
+sort_by_loc = (By.XPATH, '//*[@class="column main"]/descendant::select[@id="sorter"][1]')
+sort_by_price_loc = (
+    By.XPATH, '//*[@class="column main"]/descendant::select[@id="sorter"][1]/child::option[@value="price"]'
+)
+
 # Поиск элементов кнопок
 button_add_to_compair_loc = (By.XPATH, '//div[@class="product-item-inner"]/descendant::div[3]/child::a[2]')

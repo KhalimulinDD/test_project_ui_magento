@@ -1,4 +1,5 @@
 from utils import project_ec
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -69,3 +70,21 @@ class BasePage:
         # Проверка, что текст элемента соответствует ожидаемому
         actual_text = element.text.strip()
         assert actual_text == expected_text
+
+    def select_by_value(self, select_locator: tuple, value_locator: tuple):
+        """Метод для выбора элемента из выпадающего списка с использованием локаторов"""
+
+        # Находим элемент select по локатору (кортежу)
+        select_element = self.find(select_locator)
+
+        # Инициализируем объект Select
+        dropdown = Select(select_element)
+
+        # Находим элемент, который нужно выбрать по переданному локатору для значения
+        value_element = self.find(value_locator)
+
+        # Получаем значение атрибута 'value' элемента
+        value = value_element.get_attribute("value")
+
+        # Выбираем элемент в select по значению
+        dropdown.select_by_value(value)
