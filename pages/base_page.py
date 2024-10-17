@@ -15,6 +15,7 @@ class BasePage:
         self.driver = driver
         self.timeout = timeout
         self.actions = ActionChains(self.driver)
+        self.wait = WebDriverWait(self.driver, timeout)
 
     def open_page(self):
         """Метод для открытия страницы"""
@@ -32,9 +33,10 @@ class BasePage:
         return self.driver.find_elements(*locator)
 
     def scroll(self, locator: tuple):
-        """Метод скроллинга до нужного элемента"""
+        """Метод скроллинга до нужного элемента и возвращения этого элемента"""
         element = self.find(locator)
-        return self.driver.execute_script("arguments[0].scrollIntoView();", element)
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+        return element
 
     def compare_element_texts(self, text_element_loc1: tuple[str, str], text_element_loc2: tuple[str, str]):
         """Сравнение текста двух элементов с возможным ожиданием появления"""
@@ -48,17 +50,23 @@ class BasePage:
 
         assert element1_text == element2_text
 
-    def wait_for_element(self, locator: tuple[str, str], condition: EC, timeout: int = None):
+    def wait_for_element(self, locator: tuple[str, str], condition: EC):
         """Метод явного ожидания элемента"""
-        if timeout is None:
-            timeout = self.timeout
-        return WebDriverWait(self.driver, timeout).until(condition(locator))
+        return self.wait.until(condition(locator))
+
+    def wait_for_element_not_to_have_text_in_attribute(self, locator: tuple[str, str], attribute: str, text: str):
+        """Метод ожидания, пока атрибут элемента не будет содержать текст"""
+        by, value = locator
+
+        return self.wait.until_not(
+            EC.text_to_be_present_in_element_attribute((by, value), attribute, text)
+        )
 
     def check_create_alert_text_is(self, locator: tuple, expected_text: str):
         """Метод для проверки текста элемента на странице"""
 
         # Явное ожидание, пока текст элемента не станет непустым
-        WebDriverWait(self.driver, 5).until(project_ec.text_is_not_empty_in_element(locator))
+        self.wait.until(project_ec.text_is_not_empty_in_element(locator))
 
         # Поиск элемента по переданному локатору
         element = self.driver.find_element(*locator)
