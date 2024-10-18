@@ -27,6 +27,6 @@ def sale_page(driver):
 def driver():
     """Фикстура для открытия браузера  с опциями"""
     options.add_argument('start-maximized')
-    options.add_experimental_option('detach', True)
+    # options.add_experimental_option('detach', True)
     chrome_driver = webdriver.Chrome(options=options)
     return chrome_driver

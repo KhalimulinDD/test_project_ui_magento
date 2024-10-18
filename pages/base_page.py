@@ -108,3 +108,8 @@ class BasePage:
 
         # Проверяем, что список цен отсортирован по возрастанию
         assert prices == sorted(prices)
+
+    def switch_to_new_tab(self):
+        """Метод для переключения на новую вкладку"""
+        tabs = self.driver.window_handles
+        self.driver.switch_to.window(tabs[1])

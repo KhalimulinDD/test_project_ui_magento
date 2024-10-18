@@ -1,5 +1,6 @@
 from pages.base_page import BasePage
 from pages.locators import sale_page_locators as loc
+from selenium.webdriver.common.keys import Keys
 
 
 class SalePage(BasePage):
@@ -26,3 +27,13 @@ class SalePage(BasePage):
 
         self.wait_for_element_not_to_have_text_in_attribute(locator=loc.basket_loc, attribute='class', text='loading')
         self.find(loc.button_basket_loc).click()
+
+    # Проверка текста в пустой корзине
+    def text_in_empty_basket(self):
+        self.find(loc.button_basket_ff_loc).click()
+
+    # Открытие ссылки Pants в новой вкладке и проверка текста
+    def open_link_pants_new_tab(self):
+        link_pants = self.find(loc.pants_link_loc)
+        self.actions.key_down(Keys.CONTROL).click(link_pants).key_up(Keys.CONTROL).perform()
+        self.switch_to_new_tab()
