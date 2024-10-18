@@ -1,7 +1,7 @@
 import pytest
-from time import sleep
 from selenium import webdriver
 from pages.create_account import CreateAccount
+from pages.sale_page import SalePage
 from pages.collections_eco_friendly import CollectionsEcoFriendly
 from selenium.webdriver.chrome.options import Options
 
@@ -19,10 +19,14 @@ def collections_eco_friendly_page(driver):
 
 
 @pytest.fixture()
+def sale_page(driver):
+    return SalePage(driver)
+
+
+@pytest.fixture()
 def driver():
     """Фикстура для открытия браузера  с опциями"""
     options.add_argument('start-maximized')
-    options.add_experimental_option('detach', True)
+    # options.add_experimental_option('detach', True)
     chrome_driver = webdriver.Chrome(options=options)
-    sleep(3)
     return chrome_driver

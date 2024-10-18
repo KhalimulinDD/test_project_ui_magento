@@ -36,6 +36,7 @@ def test_men_bottoms_shorts(collections_eco_friendly_page):
     # Поиск и нажатие на элемент Shorts
     collections_eco_friendly_page.element_men_bottom_shorts()
 
+    # Проверка текста заголовка
     collections_eco_friendly_page.check_create_alert_text_is(locator=loc.text_shorts_loc, expected_text='Shorts')
 
 
