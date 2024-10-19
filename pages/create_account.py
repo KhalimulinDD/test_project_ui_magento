@@ -55,21 +55,21 @@ class CreateAccount(BasePage):
         return [
             # Отсутствует имя
             ("first_name", None, "Doe", "john.doe@example.com",
-             "Password123!", "Password123", f"{message_error_field}"),
+             "Password123!", "Password123!", f"{message_error_field}"),
 
             # Отсутствует фамилия
             ("last_name", "John", None, "john.doe@example.com",
-             "Password123!", "Password123", f"{message_error_field}"),
+             "Password123!", "Password123!", f"{message_error_field}"),
 
             # Отсутствует email
             ("email", "John", "Doe", None, "Password123!",
-             "Password123", f"{message_error_field}"),
+             "Password123!", f"{message_error_field}"),
 
             # Отсутствует пароль
             ("password", "John", "Doe", "john.doe@example.com",
-             None, "Password123", f"{message_error_field}"),
+             None, "Password123!", f"{message_error_field}"),
 
             # Отсутствует повторный пароль
             ("confirm_password", "John", "Doe", "john.doe@example.com",
-             'Password123', None, f"{message_error_field}"),
+             'Password123!', None, f"{message_error_field}"),
         ]
