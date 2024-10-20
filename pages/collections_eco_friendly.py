@@ -8,7 +8,7 @@ class CollectionsEcoFriendly(BasePage):
     page_url = '/collections/eco-friendly.html'
 
     def __init__(self, driver: WebDriver, timeout: int = 10):
-        super().__init__(driver, timeout) # Наследование от родительского класса
+        super().__init__(driver, timeout)  # Наследование от родительского класса
         self.text_button_shorts_text = None
 
     # Добавление первого товара для сравнения
@@ -17,12 +17,12 @@ class CollectionsEcoFriendly(BasePage):
         button_add_to_compare = self.find(loc.button_add_to_compair_loc)
         self.actions.move_to_element(first_element).click(button_add_to_compare).perform()
 
-    # Свойство для передачи найденного первого элемента
+    # Свойство для получения элемента первого товара
     @property
     def first_product(self):
         return self.find(loc.first_element_loc)
 
-    # Свойство для передачи найденного элемента товара в сравнении
+    # Свойство для получения элемента товара в сравнении
     @property
     def product_in_comparison(self):
         return self.find(loc.compare_product_loc)
@@ -45,7 +45,7 @@ class CollectionsEcoFriendly(BasePage):
     def text_button_shorts(self):
         return self.text_button_shorts_text
 
-    # Свойство для передачи найденного элемента Shorts на новой открытой странице
+    # Свойство для получения элемента Shorts на новой открытой странице
     @property
     def text_shorts_is_open_page(self):
         return self.find(loc.text_shorts_loc)
@@ -54,7 +54,7 @@ class CollectionsEcoFriendly(BasePage):
     def sort_by_price(self):
         self.select_by_value(select_locator=loc.sort_by_loc, value_locator=loc.sort_by_price_loc)
 
-    # Свойство для передачи найденного элемента Price
+    # Свойство для получения всех цен на странице
     @property
     def text_price(self):
         return self.find_all(loc.sorted_goods_price_loc)

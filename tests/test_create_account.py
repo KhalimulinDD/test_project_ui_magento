@@ -4,7 +4,6 @@ import allure
 import dotenv
 from faker import Faker
 from pages.create_account import CreateAccount as CA
-from pages.locators import create_account_locators as loc
 
 # Создаем объект Faker
 fake = Faker()
@@ -33,9 +32,9 @@ def test_correct_create_account(create_account_page):
     )
 
     # Проверка соответствующего текста после создания аккаунта
-    create_account_page.check_create_alert_text_is(
-        locator=loc.create_locator,
-        expected_text='Thank you for registering with Main Website Store.'
+    create_account_page.check_text_after_creating_an_account(
+        create_account_page.search_text_after_account_creation,
+        create_account_page.text_to_check_the_created_account
     )
 
 
@@ -63,5 +62,5 @@ def test_create_account_no_required_fields(
         confirm_password=confirm_password
     )
 
-    # Проверяем, что сообщение об ошибке отображается для конкретного поля
+    # Проверка, что сообщение об ошибке отображается для конкретного поля
     create_account_page.check_field_error_is_displayed(field, error_message)

@@ -1,6 +1,5 @@
 import pytest
 import allure
-from pages.locators import sale_page_locators as loc
 
 
 @allure.feature('Adding a product to the cart')
@@ -14,12 +13,12 @@ def test_adding_a_product_to_the_cart(sale_page):
     sale_page.open_page()
 
     # Добавление и открытие корзины
-    sale_page.adding_product_to_cart()
+    sale_page.adding_sixth_product_to_cart()
 
     # Сравниваем текст выбранного товара и товара в корзине
     sale_page.compare_element_texts(
-        text_element_loc1=loc.sixth_product_loc,
-        text_element_loc2=loc.text_product_in_basket_loc
+        sale_page.text_of_the_selected_product,
+        sale_page.text_of_the_product_in_the_basket
     )
 
 
@@ -33,13 +32,13 @@ def test_checking_if_the_cart_is_empty(sale_page):
     # Открытие страницы в браузере
     sale_page.open_page()
 
-    # Добавление и открытие корзины
-    sale_page.text_in_empty_basket()
+    # Открытие корзины
+    sale_page.opening_empty_basket()
 
     # Проверка соответствующего текста в пустой корзине
-    sale_page.check_create_alert_text_is(
-        locator=loc.empty_basket_text_loc,
-        expected_text='You have no items in your shopping cart.'
+    sale_page.check_text_after_creating_an_account(
+        sale_page.element_text_empty_basket,
+        sale_page.text_to_check_the_empty_basket
     )
 
 
@@ -59,7 +58,7 @@ def test_open_link_pants(sale_page):
     sale_page.open_link_pants_new_tab()
 
     # Проверка соответствующего текста на новой вкладке
-    sale_page.check_create_alert_text_is(
-        locator=loc.pants_text_new_tab_loc,
-        expected_text='Pants'
+    sale_page.compare_element_texts(
+        sale_page.element_link_text_pants,
+        sale_page.element_text_pants_new_tab
     )

@@ -1,6 +1,5 @@
 import pytest
 import allure
-from pages.locators import collections_eco_friendly_locators as loc
 
 
 @allure.feature('Add the first item to compare')
