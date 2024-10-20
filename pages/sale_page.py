@@ -1,13 +1,18 @@
 from pages.base_page import BasePage
-from pages.locators import sale_page_locators as loc
 from selenium.webdriver.common.keys import Keys
+from pages.locators import sale_page_locators as loc
+from selenium.webdriver.remote.webdriver import WebDriver
 
 
 class SalePage(BasePage):
     page_url = '/sale.html'
 
+    def __init__(self, driver: WebDriver, timeout: int = 10):
+        super().__init__(driver, timeout)  # Наследование от родительского класса
+        self.text_link_pants = None
+
     # Добавление товара в корзину и открытие корзины
-    def adding_product_to_cart(self):
+    def adding_sixth_product_to_cart(self):
         self.find(loc.button_shop_women_deals_loc).click()
 
         self.scroll(loc.sixth_product_loc)
@@ -28,12 +33,45 @@ class SalePage(BasePage):
         self.wait_for_element_not_to_have_text_in_attribute(locator=loc.basket_loc, attribute='class', text='loading')
         self.find(loc.button_basket_loc).click()
 
-    # Проверка текста в пустой корзине
-    def text_in_empty_basket(self):
-        self.find(loc.button_basket_ff_loc).click()
+    # Свойство для получения элемента выбранного товара
+    @property
+    def text_of_the_selected_product(self):
+        return self.find(loc.sixth_product_loc)
+
+    # Свойство для получения элемента товара в корзине
+    @property
+    def text_of_the_product_in_the_basket(self):
+        return self.find(loc.text_product_in_basket_loc)
+
+    # Открытие пустой корзины
+    def opening_empty_basket(self):
+        self.find(loc.button_empty_basket_loc).click()
+
+    # Свойство для получения элемента текста пустой корзины
+    @property
+    def element_text_empty_basket(self):
+        return self.find(loc.empty_basket_text_loc)
+
+    # Свойство для передачи текста, который отображается при открытии пустой корзины
+    @property
+    def text_to_check_the_empty_basket(self):
+        return 'You have no items in your shopping cart.'
 
     # Открытие ссылки Pants в новой вкладке и проверка текста
     def open_link_pants_new_tab(self):
         link_pants = self.find(loc.pants_link_loc)
+
+        self.text_link_pants = self.text_extraction(loc.pants_link_loc)
+
         self.actions.key_down(Keys.CONTROL).click(link_pants).key_up(Keys.CONTROL).perform()
         self.switch_to_new_tab()
+
+    # Свойство для передачи текста нажатой ссылки Pants
+    @property
+    def element_link_text_pants(self):
+        return self.text_link_pants
+
+    # Свойство для получения элемента текста Pants в новом окне
+    @property
+    def element_text_pants_new_tab(self):
+        return self.find(loc.pants_text_new_tab_loc)

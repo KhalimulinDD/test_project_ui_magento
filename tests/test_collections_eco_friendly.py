@@ -1,6 +1,5 @@
 import pytest
 import allure
-from pages.locators import collections_eco_friendly_locators as loc
 
 
 @allure.feature('Add the first item to compare')
@@ -18,8 +17,8 @@ def test_add_the_first_compare(collections_eco_friendly_page):
 
     # Сравниваем текст первого товара и товара в списке сравнения
     collections_eco_friendly_page.compare_element_texts(
-        text_element_loc1=loc.first_element_loc,
-        text_element_loc2=loc.compare_product_loc
+        collections_eco_friendly_page.first_product,
+        collections_eco_friendly_page.product_in_comparison
     )
 
 
@@ -34,10 +33,13 @@ def test_men_bottoms_shorts(collections_eco_friendly_page):
     collections_eco_friendly_page.open_page()
 
     # Поиск и нажатие на элемент Shorts
-    collections_eco_friendly_page.element_men_bottom_shorts()
+    collections_eco_friendly_page.click_the_button_and_search_for_the_element_shorts()
 
-    # Проверка текста заголовка
-    collections_eco_friendly_page.check_create_alert_text_is(locator=loc.text_shorts_loc, expected_text='Shorts')
+    # Сравниваем текст нажатой кнопки и текст заголовка на открытой странице
+    collections_eco_friendly_page.compare_element_texts(
+        collections_eco_friendly_page.text_button_shorts,
+        collections_eco_friendly_page.text_shorts_is_open_page
+    )
 
 
 @allure.feature('Sort by ascending order')
@@ -54,4 +56,4 @@ def test_sort_by_ascending_order(collections_eco_friendly_page):
     collections_eco_friendly_page.sort_by_price()
 
     # Проверка сортировки по возрастанию
-    collections_eco_friendly_page.check_prices_sorted_ascending(price_locator=loc.sorted_goods_loc)
+    collections_eco_friendly_page.check_prices_sorted_ascending(collections_eco_friendly_page.text_price)

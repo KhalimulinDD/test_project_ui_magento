@@ -28,6 +28,16 @@ class CreateAccount(BasePage):
 
         button.click()
 
+    # Свойство для получения элемента текста после создания аккаунта
+    @property
+    def search_text_after_account_creation(self):
+        return self.find(loc.text_create_locator)
+
+    # Свойство для передачи текста, который отображается после создания аккаунта
+    @property
+    def text_to_check_the_created_account(self):
+        return 'Thank you for registering with Main Website Store.'
+
     def check_field_error_is_displayed(self, field, error_message):
         """Проверка сообщений об ошибке для конкретных полей"""
         if field == 'first_name':
