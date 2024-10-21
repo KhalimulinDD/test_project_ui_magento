@@ -1,8 +1,8 @@
 import pytest
 from selenium import webdriver
-from pages.create_account import CreateAccount
 from pages.sale_page import SalePage
-from pages.collections_eco_friendly import CollectionsEcoFriendly
+from pages.create_account_page import CreateAccount
+from pages.collections_eco_friendly_page import CollectionsEcoFriendly
 from selenium.webdriver.chrome.options import Options
 
 options = Options()
