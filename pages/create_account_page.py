@@ -1,3 +1,4 @@
+import allure
 from pages.base_page import BasePage
 from pages.locators import create_account_locators as loc
 
@@ -5,7 +6,7 @@ from pages.locators import create_account_locators as loc
 class CreateAccount(BasePage):
     page_url = '/customer/account/create'
 
-    # Заполнение формы
+    @allure.step('Successful account registration')
     def fill_customer_form(self, first_name, last_name, email, password, confirm_password):
         """Поиск полей, подстановка данных в поля, ввод данных"""
         first_name_field = self.find(loc.first_name_field_loc)
@@ -38,6 +39,7 @@ class CreateAccount(BasePage):
     def text_to_check_the_created_account(self):
         return 'Thank you for registering with Main Website Store.'
 
+    @allure.step('Checking error messages for specific fields')
     def check_field_error_is_displayed(self, field, error_message):
         """Проверка сообщений об ошибке для конкретных полей"""
         if field == 'first_name':
