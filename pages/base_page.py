@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
@@ -16,6 +17,7 @@ class BasePage:
         self.actions = ActionChains(self.driver)
         self.wait = WebDriverWait(self.driver, timeout)
 
+    @allure.step('Open the page')
     def open_page(self):
         """Метод для открытия страницы"""
         if self.page_url:
@@ -23,20 +25,24 @@ class BasePage:
         else:
             raise NotImplementedError('Page can not be opened for this page class')
 
+    @allure.step('Find element by locator')
     def find(self, locator: tuple):
         """Метод использования одного элемента"""
         return self.driver.find_element(*locator)
 
+    @allure.step('Find elements by locator')
     def find_all(self, locator: tuple):
         """Метод использования нескольких элементов"""
         return self.driver.find_elements(*locator)
 
+    @allure.step('Scroll page to element')
     def scroll(self, locator: tuple):
         """Метод скроллинга до нужного элемента и возвращения этого элемента"""
         element = self.find(locator)
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
         return element
 
+    @allure.step('Extracting found text from the locator')
     def text_extraction(self, locator: tuple):
         """Метод для извлечения текста из элемента, найденного по локатору"""
         element = self.find(locator)
@@ -44,6 +50,7 @@ class BasePage:
         return text.strip()
 
     @staticmethod
+    @allure.step('Comparing the text of two elements')
     def compare_element_texts(element_1, element_2):
         """Сравнение текста двух уже найденных элементов или строк"""
 
@@ -54,10 +61,12 @@ class BasePage:
         # Сравнение текстов
         assert element_1_text == element_2_text
 
+    @allure.step('Waiting for element to appear')
     def wait_for_element(self, locator: tuple[str, str], condition: EC):
         """Метод явного ожидания элемента"""
         return self.wait.until(condition(locator))
 
+    @allure.step('Wait until an element attribute contains text')
     def wait_for_element_not_to_have_text_in_attribute(self, locator: tuple[str, str], attribute: str, text: str):
         """Метод ожидания, пока атрибут элемента не будет содержать текст"""
         by, value = locator
@@ -66,6 +75,7 @@ class BasePage:
             EC.text_to_be_present_in_element_attribute((by, value), attribute, text)
         )
 
+    @allure.step('Checking the text of the found element')
     def check_text_after_creating_an_account(self, element, expected_text: str):
         """Метод для проверки текста найденного элемента на странице"""
 
@@ -78,6 +88,7 @@ class BasePage:
         # Проверка, что текст элемента соответствует ожидаемому
         assert actual_text == expected_text, f"Expected '{expected_text}', but got '{actual_text}'"
 
+    @allure.step('Selecting an item from a drop-down list')
     def select_by_value(self, select_locator: tuple, value_locator: tuple):
         """Метод для выбора элемента из выпадающего списка с использованием локаторов"""
 
@@ -97,6 +108,7 @@ class BasePage:
         dropdown.select_by_value(value)
 
     @staticmethod
+    @allure.step('Checking the sorting of products in ascending order')
     def check_prices_sorted_ascending(price_elements):
         """Метод для проверки, что цены товаров отсортированы по возрастанию"""
 
@@ -110,6 +122,7 @@ class BasePage:
         # Проверяем, что список цен отсортирован по возрастанию
         assert prices == sorted(prices)
 
+    @allure.step('Switch to a new tab')
     def switch_to_new_tab(self):
         """Метод для переключения на новую вкладку"""
         tabs = self.driver.window_handles
