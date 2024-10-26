@@ -1,3 +1,4 @@
+import allure
 from pages.base_page import BasePage
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
@@ -11,7 +12,7 @@ class CollectionsEcoFriendly(BasePage):
         super().__init__(driver, timeout)  # Наследование от родительского класса
         self.text_button_shorts_text = None
 
-    # Добавление первого товара для сравнения
+    @allure.step('Adding the first product for comparison')
     def add_to_first_compare(self):
         first_element = self.find(loc.first_element_loc)
         button_add_to_compare = self.find(loc.button_add_to_compair_loc)
@@ -27,7 +28,7 @@ class CollectionsEcoFriendly(BasePage):
     def product_in_comparison(self):
         return self.find(loc.compare_product_loc)
 
-    # Переход к подвкладке Shorts во вкладке Men
+    @allure.step('Go to the Shorts subtab in the Men tab')
     def click_the_button_and_search_for_the_element_shorts(self):
         element_men = self.wait_for_element(locator=loc.men_loc, condition=EC.visibility_of_element_located)
         element_men_bottoms = self.find(loc.men_bottoms_loc)
@@ -50,7 +51,7 @@ class CollectionsEcoFriendly(BasePage):
     def text_shorts_is_open_page(self):
         return self.find(loc.text_shorts_loc)
 
-    # Поиск и нажатие на сортировку по возрастанию
+    @allure.step('Search and click to sort in ascending order')
     def sort_by_price(self):
         self.select_by_value(select_locator=loc.sort_by_loc, value_locator=loc.sort_by_price_loc)
 

@@ -1,3 +1,4 @@
+import allure
 from pages.base_page import BasePage
 from selenium.webdriver.common.keys import Keys
 from pages.locators import sale_page_locators as loc
@@ -11,7 +12,7 @@ class SalePage(BasePage):
         super().__init__(driver, timeout)  # Наследование от родительского класса
         self.text_link_pants = None
 
-    # Добавление товара в корзину и открытие корзины
+    @allure.step('Adding an item to the cart and opening the cart')
     def adding_sixth_product_to_cart(self):
         self.find(loc.button_shop_women_deals_loc).click()
 
@@ -43,7 +44,7 @@ class SalePage(BasePage):
     def text_of_the_product_in_the_basket(self):
         return self.find(loc.text_product_in_basket_loc)
 
-    # Открытие пустой корзины
+    @allure.step('Opening an empty basket')
     def opening_empty_basket(self):
         self.find(loc.button_empty_basket_loc).click()
 
@@ -57,12 +58,10 @@ class SalePage(BasePage):
     def text_to_check_the_empty_basket(self):
         return 'You have no items in your shopping cart.'
 
-    # Открытие ссылки Pants в новой вкладке и проверка текста
+    @allure.step('Opening the Pants link in a new tab and checking the text')
     def open_link_pants_new_tab(self):
         link_pants = self.find(loc.pants_link_loc)
-
         self.text_link_pants = self.text_extraction(loc.pants_link_loc)
-
         self.actions.key_down(Keys.CONTROL).click(link_pants).key_up(Keys.CONTROL).perform()
         self.switch_to_new_tab()
 
