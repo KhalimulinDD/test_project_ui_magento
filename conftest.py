@@ -26,7 +26,8 @@ def sale_page(driver):
 @pytest.fixture()
 def driver():
     """Фикстура для открытия браузера  с опциями"""
-    options.add_argument('start-maximized')
+    # options.add_argument('start-maximized')
     # options.add_experimental_option('detach', True)
+    options.add_argument('--headless')
     chrome_driver = webdriver.Chrome(options=options)
     return chrome_driver
