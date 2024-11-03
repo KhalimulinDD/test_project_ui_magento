@@ -1,4 +1,5 @@
 import pytest
+import allure
 from selenium import webdriver
 from pages.sale_page import SalePage
 from pages.create_account_page import CreateAccount
@@ -29,5 +30,7 @@ def driver():
     # options.add_argument('start-maximized')
     # options.add_experimental_option('detach', True)
     options.add_argument('--headless')
+    options.add_argument("window-size=1920,1080")
     chrome_driver = webdriver.Chrome(options=options)
-    return chrome_driver
+    yield chrome_driver
+    allure.attach(chrome_driver.get_screenshot_as_png(), name="Screenshot", attachment_type="AttachmentType.PNG")
