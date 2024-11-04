@@ -3,6 +3,7 @@ from pages.base_page import BasePage
 from selenium.webdriver.common.keys import Keys
 from pages.locators import sale_page_locators as loc
 from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class SalePage(BasePage):
@@ -42,6 +43,7 @@ class SalePage(BasePage):
     # Свойство для получения элемента товара в корзине
     @property
     def text_of_the_product_in_the_basket(self):
+        self.wait_for_element(loc.text_product_in_basket_loc, EC.visibility_of_element_located)
         return self.find(loc.text_product_in_basket_loc)
 
     @allure.step('Opening an empty basket')
