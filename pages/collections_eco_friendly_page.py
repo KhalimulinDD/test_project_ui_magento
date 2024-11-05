@@ -21,11 +21,13 @@ class CollectionsEcoFriendly(BasePage):
     # Свойство для получения элемента первого товара
     @property
     def first_product(self):
+        self.wait_for_element(loc.first_element_loc, EC.visibility_of_element_located)
         return self.find(loc.first_element_loc)
 
     # Свойство для получения элемента товара в сравнении
     @property
     def product_in_comparison(self):
+        self.wait_for_element(loc.compare_product_loc, EC.visibility_of_element_located)
         return self.find(loc.compare_product_loc)
 
     @allure.step('Go to the Shorts subtab in the Men tab')
@@ -49,6 +51,7 @@ class CollectionsEcoFriendly(BasePage):
     # Свойство для получения элемента Shorts на новой открытой странице
     @property
     def text_shorts_is_open_page(self):
+        self.wait_for_element(loc.text_shorts_loc, EC.visibility_of_element_located)
         return self.find(loc.text_shorts_loc)
 
     @allure.step('Search and click to sort in ascending order')
@@ -58,4 +61,5 @@ class CollectionsEcoFriendly(BasePage):
     # Свойство для получения всех цен на странице
     @property
     def text_price(self):
+        self.wait_for_element(loc.sorted_goods_price_loc, EC.visibility_of_element_located)
         return self.find_all(loc.sorted_goods_price_loc)

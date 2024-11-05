@@ -38,6 +38,7 @@ class SalePage(BasePage):
     # Свойство для получения элемента выбранного товара
     @property
     def text_of_the_selected_product(self):
+        self.wait_for_element(loc.sixth_product_loc, EC.visibility_of_element_located)
         return self.find(loc.sixth_product_loc)
 
     # Свойство для получения элемента товара в корзине
@@ -53,6 +54,7 @@ class SalePage(BasePage):
     # Свойство для получения элемента текста пустой корзины
     @property
     def element_text_empty_basket(self):
+        self.wait_for_element(loc.empty_basket_text_loc, EC.visibility_of_element_located)
         return self.find(loc.empty_basket_text_loc)
 
     # Свойство для передачи текста, который отображается при открытии пустой корзины
@@ -75,4 +77,5 @@ class SalePage(BasePage):
     # Свойство для получения элемента текста Pants в новом окне
     @property
     def element_text_pants_new_tab(self):
+        self.wait_for_element(loc.pants_text_new_tab_loc, EC.visibility_of_element_located)
         return self.find(loc.pants_text_new_tab_loc)

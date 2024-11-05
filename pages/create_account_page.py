@@ -1,7 +1,7 @@
 import allure
 from pages.base_page import BasePage
 from pages.locators import create_account_locators as loc
-
+from selenium.webdriver.support import expected_conditions as EC
 
 class CreateAccount(BasePage):
     page_url = '/customer/account/create'
@@ -32,6 +32,7 @@ class CreateAccount(BasePage):
     # Свойство для получения элемента текста после создания аккаунта
     @property
     def search_text_after_account_creation(self):
+        self.wait_for_element(loc.text_create_locator, EC.visibility_of_element_located)
         return self.find(loc.text_create_locator)
 
     # Свойство для передачи текста, который отображается после создания аккаунта
