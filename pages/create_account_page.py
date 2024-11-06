@@ -3,6 +3,7 @@ from pages.base_page import BasePage
 from pages.locators import create_account_locators as loc
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class CreateAccount(BasePage):
     page_url = '/customer/account/create'
 
