@@ -56,7 +56,6 @@ jobs:
       - run: mkdir allure-results && unzip artifacts.zip -d allure-results
       - run: mkdir old_pages pages_history && unzip pages.zip -d old_pages && tar -xvf old_pages/artifact.tar -C pages_history
       - run: cp pages_history/history/* allure-results && cp -r pages_history/history allure-results 
-      
       - name: Store allure history
         uses: actions/upload-artifact@v4
         with:
@@ -72,37 +71,29 @@ jobs:
     steps:
       - name: Checkout autotests
         uses: actions/checkout@v4   
-        
       - name: Set up Python environment
         uses: actions/setup-python@v5
         with:
           python-version: '3.13' 
-          
       - name: Install dependencies
         run: pip install -r requirements.txt
-        
       - name: Create .env file
         run: |
           echo "PASSWORD=${{ secrets.PASSWORD }}" > .env  
-          
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v4  
-        
       - name: Run all tests
         if: "github.event.inputs.deployment_target == 'all'"
         run: pytest --alluredir=allure-results
         continue-on-error: true
-        
       - name: Run smoke tests
         if: "github.event.inputs.deployment_target == 'smoke'"
         run: pytest -m smoke --alluredir=allure-results
         continue-on-error: true
-        
       - name: Run regression tests
         if: "github.event.inputs.deployment_target == 'regression'"
         run: pytest -m regression --alluredir=allure-results
         continue-on-error: true
-        
       - name: Store allure results
         uses: actions/upload-artifact@v4
         with:
@@ -121,15 +112,11 @@ jobs:
         with:
           distribution: 'microsoft'
           java-version: '17'  
-          
       - name: Install Allure 
         run: sudo wget https://github.com/allure-framework/allure2/releases/download/2.32.0/allure-2.32.0.tgz && sudo tar -zxvf allure-2.32.0.tgz -C /opt/ && sudo ln -s /opt/allure-2.32.0/bin/allure /usr/bin/allure
-        
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v4    
-        
-      - run: allure generate -c allure-results -o _site
-      
+      - run: allure generate -c allure-results-history -o _site
       - name: Store allure report
         uses: actions/upload-artifact@v4
         with:
@@ -145,10 +132,8 @@ jobs:
     steps:
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v4
-        
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3 
-        
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
