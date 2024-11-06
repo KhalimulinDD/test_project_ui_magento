@@ -57,11 +57,12 @@ jobs:
       - run: mkdir old_pages pages_history && unzip pages.zip -d old_pages && tar -xvf old_pages/artifact.tar -C pages_history
       - run: cp pages_history/history/* allure-results && cp -r pages_history/history allure-results 
       
-      - name: Store allure results fot download-history
+      - name: Store allure history
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-download-history
-          path: allure-results
+          name: allure-results-history
+          path: 
+            allure-results
           retention-days: 1
 
   run-tests:
@@ -102,11 +103,12 @@ jobs:
         run: pytest -m regression --alluredir=allure-results
         continue-on-error: true
         
-      - name: Store allure results for run-tests
+      - name: Store allure results
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-run-tests
-          path: allure-results
+          name: allure-results
+          path:
+            allure-results
           retention-days: 1
 
   generate-report:
@@ -128,11 +130,12 @@ jobs:
         
       - run: allure generate -c allure-results -o _site
       
-      - name: Store allure results for generate-report
+      - name: Store allure report
         uses: actions/upload-artifact@v4
         with:
           name: _site
-          path: _site
+          path: 
+            _site
           retention-days: 1
           
   publish-report:
